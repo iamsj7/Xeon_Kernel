@@ -5750,7 +5750,7 @@ static int __init uksm_init(void)
 		kthread_stop(uksm_thread);
 		goto out_free;
 	}
-	err = sysfs_create_group(mm_kobj, &ksm_attr_group);
+        err = sysfs_create_group(mm_kobj, &ksm_attr_group);
 	if (err)
 		printk(KERN_ERR "uksm: register legacy sysfs failed\n");
 #else
