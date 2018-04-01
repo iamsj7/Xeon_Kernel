@@ -16,11 +16,7 @@ script:
 - export KBUILD_BUILD_HOST="SJHub-XeonNetworks"
 - make lineageos_jalebi_defconfig
 - make -j128
-- cp ~/xeon/arch/arm/boot/zImage ~/xeon/lf
-- cd ~/xeon/lf
-- zip -r XeonKernel_jalebi-CIBuild.zip *
-- curl --upload-file ./XeonKernel_jalebi-CIBuild.zip https://transfer.sh/XeonKernel_jalebi-CIBuild.zip
 - cd ~/xeon/arch/arm/boot
 - curl --upload-file ./zImage https://transfer.sh/zImage
-- cd ~/xeon/lf
+- cd ~/xeon
 - echo All Done
