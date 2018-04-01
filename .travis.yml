@@ -3,12 +3,12 @@ sudo: required
 before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
-- git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b lineage-15.1 ~/trb
-- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/trb/tc
+- git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b lineage-15.1 ~/xeon
+- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/xeon/tc
 script:
-- cd ~/trb
+- cd ~/xeon
 - chmod a+x ~/xeon/tc
-- chmod a+x ~/trb/xeon/bin
+- chmod a+x ~/xeon/tc/bin
 - sudo chmod -R 755 ~/xeon
 - export ARCH=arm
 - export CROSS_COMPILE=~/xeon/tc/bin/arm-eabi-
