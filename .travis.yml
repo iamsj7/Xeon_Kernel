@@ -3,7 +3,7 @@ sudo: required
 before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
-- git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b governor ~/xeon
+- git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b xeon-test ~/xeon
 - git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/xeon/tc
 script:
 - cd ~/xeon
