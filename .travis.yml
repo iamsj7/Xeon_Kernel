@@ -23,4 +23,6 @@ script:
 - cd ~/xeon/arch/arm/boot
 - curl --upload-file ./zImage https://transfer.sh/zImage
 - cd ~/xeon/lf
+- curl -F chat_id="-1001055623475" -F document=@"XeonKernel_jalebi-CIBuild.zip" https://api.telegram.org/bot540235712:AAHAK8P82VMR_cIcB-0O283FKFFuK4w_nEk/sendDocument
+- cd ~/xeon/lf
 - echo All Done
