@@ -26,7 +26,7 @@ DTBTOOL=$KERNEL_DIR/tools/dtbToolCM
 
 # Export
 export ARCH=arm
-export CROSS_COMPILE=~/kernel/tc/bin/arm-linux-androideabi-
+export CROSS_COMPILE=~/kernel/xeon/tc/bin/arm-eabi-
 export KBUILD_BUILD_USER="iamsj7"
 export KBUILD_BUILD_USER="SJHub-XeonNetworks"
 
