@@ -1,0 +1,28 @@
+sudo: required
+
+before_install:
+- sudo apt-get install zip
+- sudo apt install ccache
+- git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b stock-8.1 ~/xeon
+- git clone --recursive https://github.com/Galaxy-MSM8916/android-prebuilts-gcc-linux-x86-arm-arm-eabi-7.2 ~/xeon/tc
+script:
+- cd ~/xeon
+- chmod a+x ~/xeon/tc
+- chmod a+x ~/xeon/tc/bin
+- sudo chmod -R 755 ~/xeon
+- export ARCH=arm
+- export CROSS_COMPILE=~/xeon/tc/bin/arm-eabi-
+- export KBUILD_BUILD_USER="iamsj7"
+- export KBUILD_BUILD_HOST="SJHub-XeonNetworks"
+- make lineageos_jalebi_defconfig
+- make -j128
+- cp ~/xeon/arch/arm/boot/zImage ~/xeon/lf
+- cd ~/xeon/lf
+- zip -r XeonKernel_jalebi-CIBuild.zip *
+- curl --upload-file ./XeonKernel_jalebi-CIBuild.zip https://transfer.sh/XeonKernel_jalebi-CIBuild.zip
+- cd ~/xeon/arch/arm/boot
+- curl --upload-file ./zImage https://transfer.sh/zImage
+- cd ~/xeon/lf
+- curl -F chat_id="-1001055623475" -F document=@"XeonKernel_jalebi-CIBuild.zip" https://api.telegram.org/bot540235712:AAHAK8P82VMR_cIcB-0O283FKFFuK4w_nEk/sendDocument
+- cd ~/xeon/lf
+- echo All Done
