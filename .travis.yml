@@ -4,7 +4,7 @@ before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
 - git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b xeon-r2 ~/xeon
-- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/xeon/tc
+- git clone --recursive https://github.com/Galaxy-MSM8916/android-prebuilts-gcc-linux-x86-arm-arm-eabi-7.2 ~/xeon/tc
 script:
 - cd ~/xeon
 - chmod a+x ~/xeon/tc
