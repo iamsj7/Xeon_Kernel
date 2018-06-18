@@ -390,6 +390,18 @@ static int __check_block_validity(struct inode *inode, const char *func,
 	return 0;
 }
 
+int ext4_issue_zeroout(struct inode *inode, ext4_lblk_t lblk, ext4_fsblk_t pblk,
+		       ext4_lblk_t len)
+{
+	int ret;
+
+	ret = sb_issue_zeroout(inode->i_sb, pblk, len, GFP_NOFS);
+	if (ret > 0)
+		ret = 0;
+
+	return ret;
+}
+
 #define check_block_validity(inode, map)	\
 	__check_block_validity((inode), __func__, __LINE__, (map))
 
@@ -3628,6 +3640,7 @@ int ext4_can_truncate(struct inode *inode)
 int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
 {
 #if 0
+	struct inode *inode = file_inode(file);
 	struct super_block *sb = inode->i_sb;
 	ext4_lblk_t first_block, stop_block;
 	struct address_space *mapping = inode->i_mapping;
@@ -3754,36 +3767,11 @@ out_mutex:
 	mutex_unlock(&inode->i_mutex);
 	return ret;
 #else
-   /*
-    * Disabled as per b/28760453
-    */
-   return -EOPNOTSUPP;
+	/*
+	 * Disabled as per b/28760453
+	 */
+	return -EOPNOTSUPP;
 #endif
-}
-
-int ext4_inode_attach_jinode(struct inode *inode)
-{
-	struct ext4_inode_info *ei = EXT4_I(inode);
-	struct jbd2_inode *jinode;
-
-	if (ei->jinode || !EXT4_SB(inode->i_sb)->s_journal)
-		return 0;
-
-	jinode = jbd2_alloc_inode(GFP_KERNEL);
-	spin_lock(&inode->i_lock);
-	if (!ei->jinode) {
-		if (!jinode) {
-			spin_unlock(&inode->i_lock);
-			return -ENOMEM;
-		}
-		ei->jinode = jinode;
-		jbd2_journal_init_jbd_inode(ei->jinode, inode);
-		jinode = NULL;
-	}
-	spin_unlock(&inode->i_lock);
-	if (unlikely(jinode != NULL))
-		jbd2_free_inode(jinode);
-	return 0;
 }
 
 /*
