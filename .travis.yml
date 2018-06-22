@@ -4,7 +4,7 @@ before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
 - git clone --recursive https://github.com/iamsj7/Xeon_Kernel -b xeon-r2 ~/xeon
-- git clone --recursive https://github.com/Galaxy-MSM8916/android-prebuilts-gcc-linux-x86-arm-arm-eabi-7.2 ~/xeon/tc
+- git clone --recursive https://github.com/iamsj7/gcc-arm-eabi-toolchains -b gcc-7.3 ~/xeon/tc
 script:
 - cd ~/xeon
 - chmod a+x ~/xeon/tc
@@ -18,11 +18,11 @@ script:
 - make -j128
 - cp ~/xeon/arch/arm/boot/zImage ~/xeon/lf
 - cd ~/xeon/lf
-- zip -r XeonKernel_jalebi-CIBuild.zip *
+- zip -r XeonKernel_jalebi-20180622-CIBuild.zip *
 - curl --upload-file ./XeonKernel_jalebi-CIBuild.zip https://transfer.sh/XeonKernel_jalebi-CIBuild.zip
 - cd ~/xeon/arch/arm/boot
 - curl --upload-file ./zImage https://transfer.sh/zImage
 - cd ~/xeon/lf
-- curl -F chat_id="-1001055623475" -F document=@"XeonKernel_jalebi-CIBuild.zip" https://api.telegram.org/bot540235712:AAHAK8P82VMR_cIcB-0O283FKFFuK4w_nEk/sendDocument
+- curl -F chat_id="-1001055623475" -F document=@"XeonKernel_jalebi-20180622-CIBuild.zip" https://api.telegram.org/bot540235712:AAHAK8P82VMR_cIcB-0O283FKFFuK4w_nEk/sendDocument
 - cd ~/xeon/lf
 - echo All Done
