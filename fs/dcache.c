@@ -228,7 +228,7 @@ static void __d_free(struct rcu_head *head)
 {
 	struct dentry *dentry = container_of(head, struct dentry, d_u.d_rcu);
 
-	kmem_cache_free(dentry_cache, dentry);
+	kmem_cache_free(dentry_cache, dentry); 
 }
 
 static void __d_free_external(struct rcu_head *head)
@@ -1315,9 +1315,9 @@ struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
 	 */
 	dentry->d_iname[DNAME_INLINE_LEN-1] = 0;
 	if (name->len > DNAME_INLINE_LEN-1) {
-        size_t size = offsetof(struct external_name, name[1]);
-        struct external_name *p = kmalloc(size + name->len, GFP_KERNEL);
-        if (!p) {
+		size_t size = offsetof(struct external_name, name[1]);
+		struct external_name *p = kmalloc(size + name->len, GFP_KERNEL);
+		if (!p) {
 			kmem_cache_free(dentry_cache, dentry); 
 			return NULL;
 		}
