@@ -450,6 +450,14 @@ static void q6asm_session_free(struct audio_client *ac)
 	return;
 }
 
+static uint32_t q6asm_get_next_buf(uint32_t curr_buf, uint32_t max_buf_cnt)
+{
+	pr_debug("%s: curr_buf = %d, max_buf_cnt = %d\n",
+		 __func__, curr_buf, max_buf_cnt);
+	curr_buf += 1;
+	return (curr_buf >= max_buf_cnt) ? 0 : curr_buf;
+}
+
 static int q6asm_map_cal_memory(int32_t cal_type,
 	struct cal_block_data *cal_block)
 {
